@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storagetest-deployment
+  labels:
+    app: storagetest
+spec:
+  selector:
+    matchLabels:
+      app: storagetest
+  template:
+    metadata:
+      labels:
+        app: storagetest
+    spec:
+      containers:
+        - name: storagetest
+          image: ghcr.io/stenvik/home:main
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: storagetest-svc
+spec:
+  selector:
+    app: storagetest
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
