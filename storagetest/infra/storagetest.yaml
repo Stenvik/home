@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: storagetest-pvc
+  namespace: storagetest-ns
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 2Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,6 +32,13 @@ spec:
           image: ghcr.io/stenvik/home:latest
           ports:
             - containerPort: 3000
+          volumeMounts:
+          - mountPath: /public/
+            name: log
+      volumes:
+      - name: log
+        persistentVolumeClaim:
+          claimName: storagetest-pvc
 ---
 apiVersion: v1
 kind: Service
