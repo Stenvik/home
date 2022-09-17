@@ -24,7 +24,12 @@ Enable container features by adding `cgroup_enable=cpuset cgroup_memory=1 cgroup
 `k3sup join --ip $IP --server-ip $SERVER_IP --user pi`
 
 
+# Longhorn
+
+`helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace`
+
 
 # Guides used
 
 * https://github.com/alexellis/k3sup
+* https://michael-tissen.medium.com/installing-longhorn-on-a-on-raspberry-pi-kubernetes-cluster-5933c85c7d1e
